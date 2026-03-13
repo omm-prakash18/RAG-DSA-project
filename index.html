@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlgoMind — DSA Learning with AI</title>
+  <meta name="description" content="Master Data Structures & Algorithms with AI-powered assistance from Google Gemini.">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-orbs">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-icon">
+        <i class="fas fa-code"></i>
+      </div>
+      AlgoMind
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home"><i class="fas fa-house"></i> Home</a></li>
+      <li><a href="#problems"><i class="fas fa-list-check"></i> Problems</a></li>
+      <li><a href="#compiler"><i class="fas fa-terminal"></i> Workspace</a></li>
+      <li><a href="#about"><i class="fas fa-circle-info"></i> About</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="api-badge disconnected" id="api-status">
+        <i class="fas fa-circle"></i> No API Key
+      </div>
+      <button class="icon-btn" id="theme-toggle" title="Toggle Theme">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="icon-btn" id="settings-btn" title="Settings">
+        <i class="fas fa-gear"></i>
+      </button>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home">
+      <div class="hero-badge">
+        <i class="fas fa-sparkles"></i>
+        AI-Powered DSA Learning
+      </div>
+
+      <div class="hero-title">
+        <h1>Master Algorithms with<br><span class="gradient-text">AI Guidance</span></h1>
+      </div>
+
+      <p class="hero-desc">
+        Practice Data Structures & Algorithms with an intelligent tutor powered by Google Gemini. 
+        Get hints, explanations, and real-time debugging help.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#problems" class="btn btn-primary">
+          <i class="fas fa-rocket"></i> Start Practicing
+        </a>
+        <button class="btn btn-outline" onclick="App.openSettings()">
+          <i class="fas fa-key"></i> Add API Key
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Problems</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">AI</div>
+          <div class="stat-label">Powered</div>
+        </div>
+      </div>
+
+      <!-- Progress Widget -->
+      <div class="progress-section" style="width:100%;max-width:600px;">
+        <div class="progress-stats">
+          <div class="prog-stat">
+            <div class="prog-stat-num" id="stat-solved">0</div>
+            <div class="prog-stat-label">Solved</div>
+          </div>
+          <div class="prog-stat">
+            <div class="prog-stat-num" id="stat-total">8</div>
+            <div class="prog-stat-label">Total</div>
+          </div>
+          <div class="prog-stat">
+            <div class="prog-stat-num" id="stat-pct">0%</div>
+            <div class="prog-stat-label">Progress</div>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.5rem;">Your Progress</div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-bar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section id="problems">
+      <div class="section-header">
+        <div>
+          <h2>Problem Set</h2>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.25rem;">Filter, explore, and solve — with AI help when you need it</p>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters" style="margin-bottom:1.5rem;">
+        <div class="search-box">
+          <i class="fas fa-magnifying-glass"></i>
+          <input type="text" id="problem-search" placeholder="Search problems..." autocomplete="off">
+        </div>
+        <div class="filter-btns" id="category-filters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="Arrays">Arrays</button>
+          <button class="filter-btn" data-category="Stack">Stack</button>
+          <button class="filter-btn" data-category="Linked List">Linked List</button>
+          <button class="filter-btn" data-category="Dynamic Programming">DP</button>
+          <button class="filter-btn" data-category="Trees">Trees</button>
+          <button class="filter-btn" data-category="Design">Design</button>
+        </div>
+        <div class="filter-btns" id="difficulty-filters">
+          <button class="filter-btn active" data-difficulty="all">All Levels</button>
+          <button class="filter-btn" data-difficulty="Easy">Easy</button>
+          <button class="filter-btn" data-difficulty="Medium">Medium</button>
+          <button class="filter-btn" data-difficulty="Hard">Hard</button>
+        </div>
+      </div>
+
+      <!-- Problems Grid -->
+      <div class="problems-grid" id="problems-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Compiler/Workspace Section -->
+    <section id="compiler" style="max-width:100%;padding:2rem 1.5rem;min-height:auto;">
+      <div class="compiler-title">
+        <h2>Workspace</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.25rem;">Select a problem to start solving</p>
+      </div>
+
+      <!-- Problem Panel -->
+      <div class="problem-panel" id="problem-panel">
+        <div class="problem-panel-header">
+          <span><i class="fas fa-file-code"></i> Problem</span>
+          <span style="font-size:0.75rem;color:var(--text-dim)">← Select from Problems</span>
+        </div>
+        <div id="problem-detail">
+          <div class="no-problem-selected">
+            <i class="fas fa-code-branch"></i>
+            <h3>No Problem Selected</h3>
+            <p>Go to the Problems section and click "Solve" on any problem to open it here.</p>
+            <a href="#problems" class="btn btn-primary" style="margin-top:0.5rem;">
+              <i class="fas fa-list"></i> Browse Problems
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor Panel -->
+      <div class="editor-panel">
+        <div class="editor-header">
+          <div class="lang-selector">
+            <button class="lang-btn active" data-lang="python">Python</button>
+            <button class="lang-btn" data-lang="javascript">JS</button>
+            <button class="lang-btn" data-lang="java">Java</button>
+            <button class="lang-btn" data-lang="cpp">C++</button>
+          </div>
+          <div class="editor-actions">
+            <button class="editor-btn" onclick="App.copyCode()" title="Copy Code">
+              <i class="fas fa-copy"></i> Copy
+            </button>
+            <button class="editor-btn" onclick="App.resetCode()" title="Reset to Template">
+              <i class="fas fa-rotate-left"></i> Reset
+            </button>
+            <button class="editor-btn run-btn" onclick="App.runCode()" title="Run Code (Ctrl+Enter)">
+              <i class="fas fa-play"></i> Run
+            </button>
+          </div>
+        </div>
+
+        <textarea class="code-editor" id="code-editor" spellcheck="false" placeholder="// Select a problem from the Problems section, then write your solution here...
+
+// 💡 Tips:
+// • Ctrl+Enter to run code
+// • Ctrl+H for a hint
+// • Use the AI chat button (bottom right) for help"
+        ></textarea>
+
+        <div class="output-panel">
+          <div class="output-header">
+            <i class="fas fa-terminal"></i> Output
+          </div>
+          <pre class="output-area" id="output-area">Output will appear here after running your code...</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2>About AlgoMind</h2>
+      <p style="color:var(--text-muted);margin-top:0.5rem;max-width:500px;">
+        A free, open learning platform combining curated DSA problems with AI-powered assistance. 
+        No account needed — just bring your Gemini API key.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-icon">🤖</div>
+          <h3>AI Tutor</h3>
+          <p>Powered by Google Gemini for intelligent hints, explanations, debugging help, and complexity analysis.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">⚡</div>
+          <h3>Instant Feedback</h3>
+          <p>Run JavaScript code directly in the browser. Get immediate results and AI-powered debugging.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📈</div>
+          <h3>Progress Tracking</h3>
+          <p>Track solved problems locally. Your progress saves in your browser — no account needed.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🎯</div>
+          <h3>Curated Problems</h3>
+          <p>Hand-picked classic DSA problems from Easy to Hard, covering all major data structures and algorithms.</p>
+        </div>
+      </div>
+
+      <!-- Keyboard Shortcuts -->
+      <div style="margin-top:2.5rem;">
+        <h3 style="margin-bottom:1rem;">Keyboard Shortcuts</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.75rem;">
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;">
+            <span style="color:var(--text-muted);font-size:0.85rem;">Run Code</span>
+            <kbd style="background:var(--border);padding:3px 8px;border-radius:4px;font-family:var(--font-code);font-size:0.75rem;">Ctrl+Enter</kbd>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;">
+            <span style="color:var(--text-muted);font-size:0.85rem;">Get Hint</span>
+            <kbd style="background:var(--border);padding:3px 8px;border-radius:4px;font-family:var(--font-code);font-size:0.75rem;">Ctrl+H</kbd>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;">
+            <span style="color:var(--text-muted);font-size:0.85rem;">Close Modal</span>
+            <kbd style="background:var(--border);padding:3px 8px;border-radius:4px;font-family:var(--font-code);font-size:0.75rem;">Escape</kbd>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;">
+            <span style="color:var(--text-muted);font-size:0.85rem;">Send AI Message</span>
+            <kbd style="background:var(--border);padding:3px 8px;border-radius:4px;font-family:var(--font-code);font-size:0.75rem;">Enter</kbd>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Commands -->
+      <div style="margin-top:2.5rem;">
+        <h3 style="margin-bottom:1rem;">AI Chat Commands</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.75rem;">
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+            <code style="color:var(--primary-light);">/explain</code>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.25rem;">Full problem explanation with approach</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+            <code style="color:var(--warning);">/hint</code>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.25rem;">Progressive hints (levels 1-3)</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+            <code style="color:var(--error);">/debug</code>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.25rem;">Debug your current code</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+            <code style="color:var(--accent);">/complexity</code>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.25rem;">Analyze time & space complexity</p>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 1rem;">
+            <code style="color:var(--success);">/visualize</code>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-top:0.25rem;">Text visualization of the algorithm</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>AlgoMind — Built for learners 🚀 | AI powered by <a href="https://ai.google.dev" target="_blank">Google Gemini</a></p>
+    <p style="margin-top:0.5rem;font-size:0.78rem;">Your API key is stored locally and never sent anywhere except Google's API.</p>
+  </footer>
+
+  <!-- Floating Chat -->
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-header">
+      <h3><i class="fas fa-robot"></i> DSA Assistant</h3>
+      <div class="chat-header-actions">
+        <button class="chat-action-btn" onclick="App.exportChat()" title="Export Chat">
+          <i class="fas fa-download"></i>
+        </button>
+        <button class="chat-action-btn" onclick="toggleChat()" title="Close">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+    <div class="chat-commands">
+      <button class="cmd-btn" onclick="App.aiExplain()">/explain</button>
+      <button class="cmd-btn" onclick="App.aiHint()">/hint</button>
+      <button class="cmd-btn" onclick="App.aiDebug()">/debug</button>
+      <button class="cmd-btn" onclick="App.aiComplexity()">/complexity</button>
+      <button class="cmd-btn" onclick="App.aiVisualize()">/visualize</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-message assistant">
+        <div class="message-avatar"><i class="fas fa-robot"></i></div>
+        <div class="message-content">
+          <p>👋 Hi! I'm your DSA tutor. Select a problem and I'll help you solve it using the Socratic method — guiding you to the answer rather than just giving it away!</p>
+          <p>Set your <strong>Gemini API key</strong> in Settings to enable AI features.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <textarea 
+        id="chat-input" 
+        placeholder="Ask anything about DSA... (Enter to send)"
+        rows="1"
+      ></textarea>
+      <button class="send-btn" onclick="App.sendChatMessage()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat FAB -->
+  <button class="chat-fab" id="chat-fab" onclick="toggleChat()" title="Open AI Assistant">
+    <i class="fas fa-message-bot"></i>
+  </button>
+
+  <!-- Hint Modal -->
+  <div class="modal-overlay" id="hint-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="hint-modal-title">💡 Hint</h2>
+        <button class="modal-close" onclick="App.closeModal('hint-modal')"><i class="fas fa-xmark"></i></button>
+      </div>
+      <div id="hint-content" style="color:var(--text-muted);line-height:1.7;"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>⚙️ Settings</h2>
+        <button class="modal-close" onclick="App.closeModal('settings-modal')"><i class="fas fa-xmark"></i></button>
+      </div>
+      
+      <div class="form-group">
+        <label for="api-key-input">Gemini API Key</label>
+        <input type="password" id="api-key-input" placeholder="AIza...">
+        <div class="help-text">
+          Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a>. 
+          It's stored only in your browser's localStorage.
+        </div>
+      </div>
+
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1.25rem;">
+        <h4 style="font-size:0.85rem;margin-bottom:0.5rem;color:var(--text-muted);">How to get a Gemini API Key:</h4>
+        <ol style="font-size:0.82rem;color:var(--text-dim);padding-left:1.25rem;line-height:1.8;">
+          <li>Go to <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></li>
+          <li>Sign in with your Google account</li>
+          <li>Click "Create API Key"</li>
+          <li>Copy the key and paste it above</li>
+        </ol>
+      </div>
+
+      <div style="display:flex;gap:0.75rem;align-items:center;">
+        <button class="btn btn-primary" id="save-api-key" style="flex:1;">
+          <i class="fas fa-save"></i> Save API Key
+        </button>
+        <button class="btn btn-outline" onclick="configureAPI('');App.checkAPIKey();App.closeModal('settings-modal');App.showToast('API key cleared','info');">
+          Clear Key
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="problems.js"></script>
+  <script src="gemini-api.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    // Chat toggle
+    let chatOpen = false;
+    function toggleChat() {
+      chatOpen = !chatOpen;
+      const panel = document.getElementById('chat-panel');
+      const fab = document.getElementById('chat-fab');
+      panel.classList.toggle('open', chatOpen);
+      fab.classList.toggle('open', chatOpen);
+    }
+
+    // Auto-resize chat textarea
+    document.addEventListener('DOMContentLoaded', () => {
+      const ta = document.getElementById('chat-input');
+      if (ta) {
+        ta.addEventListener('input', () => {
+          ta.style.height = '40px';
+          ta.style.height = Math.min(ta.scrollHeight, 100) + 'px';
+        });
+      }
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+        // Close mobile nav
+        document.getElementById('nav-links')?.classList.remove('open');
+        document.getElementById('hamburger')?.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
